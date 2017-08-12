@@ -3,7 +3,27 @@
 $(document).ready(function () {
 
 
+function scrollToButtom() {
 
+    let messages = $('#messages');
+    let newMessage = messages.children('li:last-child');
+
+    let clientHeight = messages.prop('clientHeight');
+    let scrollTop = messages.prop('scrollTop');
+    let scrollHeight = messages.prop('scrollHeight');
+    let newMessageHeight = newMessage.innerHeight();
+    let lastMessageHeight = newMessage.prev().innerHeight();
+
+    let sum = clientHeight + scrollHeight + newMessageHeight + lastMessageHeight;
+
+    if(sum => clientHeight) messages.scrollTop(scrollHeight);
+
+    console.log(`Client heigh: ${clientHeight}, scrollTop: ${scrollTop}, scrollHeigh: ${scrollHeight}
+                newMessageHEigh: ${newMessageHeight}, lastMessage: ${lastMessageHeight}, sum :${sum}`);
+    
+}
+    
+    
 let socket = io();
 
 socket.on('connect',()=>{
@@ -29,6 +49,7 @@ socket.on('newMessage', function (message) {
         });
 
         $('#messages').append(html);
+        scrollToButtom()
 
 
 });
@@ -47,6 +68,7 @@ socket.on('newLocationMessage', function (message) {
 
 
    $('#messages').append(html);
+    scrollToButtom()
 
 });
 
